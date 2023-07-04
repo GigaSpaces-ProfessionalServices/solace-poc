@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomExternalDataSource.ExternalDataSource", "ExternalDataSource\CustomExternalDataSource.ExternalDataSource.csproj", "{7433D594-35C5-47F9-BB50-869B3EE5DFDC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomExternalDataSource.Space", "Space\CustomExternalDataSource.Space.csproj", "{DA33A8F5-F0D3-46A3-91D2-42D87903288F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7433D594-35C5-47F9-BB50-869B3EE5DFDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7433D594-35C5-47F9-BB50-869B3EE5DFDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7433D594-35C5-47F9-BB50-869B3EE5DFDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7433D594-35C5-47F9-BB50-869B3EE5DFDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA33A8F5-F0D3-46A3-91D2-42D87903288F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA33A8F5-F0D3-46A3-91D2-42D87903288F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA33A8F5-F0D3-46A3-91D2-42D87903288F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA33A8F5-F0D3-46A3-91D2-42D87903288F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3A6C7B60-A95E-4F9A-AA3F-D2892070925C}
+	EndGlobalSection
+EndGlobal
