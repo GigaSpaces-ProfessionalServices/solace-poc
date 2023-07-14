@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net4.8</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>	    
+    <PlatformTarget>x64</PlatformTarget>	    
+    <OutputType>Library</OutputType>	    
+    
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.1.4" />
+    <PackageReference Include="SolaceSystems.Solclient.Messaging" Version="10.20.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\GigaSpaces.Examples.ProcessingUnit.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="GigaSpaces.Core">
+      <HintPath>..\..\..\..\..\..\GigaSpaces\XAP.NET-16.3.0-patch-p-3-x64\NET v4.0\Bin\GigaSpaces.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\Practices\ExternalDataSource\NHibernate\NHibernate-3.3.3.GA-bin\Required_Bins\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
