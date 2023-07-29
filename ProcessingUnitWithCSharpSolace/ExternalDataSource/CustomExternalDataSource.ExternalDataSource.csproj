@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net4.8</TargetFramework>
@@ -7,17 +7,16 @@
     <Nullable>enable</Nullable>	    
     <PlatformTarget>x64</PlatformTarget>	    
     <OutputType>Library</OutputType>	    
-    
+    <OutputPath>..\Release\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NLog" Version="5.1.4" />
-    <PackageReference Include="SolaceSystems.Solclient.Messaging" Version="10.20.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common\GigaSpaces.Examples.ProcessingUnit.Common.csproj" />
+    <ProjectReference Include="..\Common\Piper.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +30,5 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>

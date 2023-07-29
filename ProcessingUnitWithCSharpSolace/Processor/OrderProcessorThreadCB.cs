@@ -1,6 +1,6 @@
 ﻿using GigaSpaces.Core;
 
-using GigaSpaces.Examples.ProcessingUnit.Common;
+using Piper.Common;
 
 using System;
 
@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 
 
-namespace GigaSpaces.Examples.ProcessingUnit.Processor
+namespace Piper.Processor
 
 {
 

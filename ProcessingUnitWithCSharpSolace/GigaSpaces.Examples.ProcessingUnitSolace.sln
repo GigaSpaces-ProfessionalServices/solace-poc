@@ -2,16 +2,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaSpaces.Examples.ProcessingUnit.Common", "Common\GigaSpaces.Examples.ProcessingUnit.Common.csproj", "{A17D4B36-2808-4619-BF70-678D7F6B9079}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piper.Common", "Common\Piper.Common.csproj", "{A17D4B36-2808-4619-BF70-678D7F6B9079}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaSpaces.Examples.ProcessingUnit.ProcessorSolace", "Processor\GigaSpaces.Examples.ProcessingUnit.ProcessorSolace.csproj", "{91974CE2-45DF-495F-AC95-B96043DD72A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Piper.ProcessingUnit.ProcessorSolace", "Processor\Piper.ProcessingUnit.ProcessorSolace.csproj", "{91974CE2-45DF-495F-AC95-B96043DD72A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A17D4B36-2808-4619-BF70-678D7F6B9079} = {A17D4B36-2808-4619-BF70-678D7F6B9079}
+		{DDA39915-7169-441E-9A48-B1383F79645A} = {DDA39915-7169-441E-9A48-B1383F79645A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaSpaces.Examples.ProcessingUnit.Mirror", "Mirror\GigaSpaces.Examples.ProcessingUnit.Mirror.csproj", "{75758A09-6FD0-495E-AD5A-38BBB0B40E93}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A17D4B36-2808-4619-BF70-678D7F6B9079} = {A17D4B36-2808-4619-BF70-678D7F6B9079}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaSpaces.Examples.ProcessingUnit.Mirror", "Mirror\GigaSpaces.Examples.ProcessingUnit.Mirror.csproj", "{75758A09-6FD0-495E-AD5A-38BBB0B40E93}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomExternalDataSource.ExternalDataSource", "ExternalDataSource\CustomExternalDataSource.ExternalDataSource.csproj", "{DDA39915-7169-441E-9A48-B1383F79645A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A17D4B36-2808-4619-BF70-678D7F6B9079} = {A17D4B36-2808-4619-BF70-678D7F6B9079}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

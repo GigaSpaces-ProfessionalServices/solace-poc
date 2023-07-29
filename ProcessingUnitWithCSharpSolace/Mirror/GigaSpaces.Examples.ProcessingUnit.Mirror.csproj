@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GigaSpaces.Examples.ProcessingUnit.Mirror</RootNamespace>
-    <AssemblyName>GigaSpaces.Examples.ProcessingUnit..Mirror</AssemblyName>
+    <AssemblyName>GigaSpaces.Examples.ProcessingUnit.Mirror</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -78,10 +78,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Bin\GigaSpaces.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GigaSpaces.Examples.ProcessingUnit.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Release\GigaSpaces.Examples.ProcessingUnit.Common.dll</HintPath>
-    </Reference>
     <Reference Include="GigaSpaces.Practices.ExternalDataSource.NHibernate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Practices\ExternalDataSource\NHibernate\Bin\GigaSpaces.Practices.ExternalDataSource.NHibernate.dll</HintPath>
@@ -99,27 +95,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="NHibernateCfg\Fills.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NHibernateCfg\nHibernate.eagan.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NHibernateCfg\nHibernate.ny.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="NHibernateCfg\nHibernate.cfg.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="NHibernateCfg\Orders.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="sla.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <ProjectReference Include="..\Common\Piper.Common.csproj">
+      <Project>{a17d4b36-2808-4619-bf70-678d7f6b9079}</Project>
+      <Name>Piper.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

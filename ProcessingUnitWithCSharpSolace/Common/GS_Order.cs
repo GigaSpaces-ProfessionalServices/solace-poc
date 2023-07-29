@@ -1,7 +1,7 @@
 using System;
 using GigaSpaces.Core.Metadata;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Common
+namespace Piper.Common
 {
     /// <summary>
     /// Represnts a Order object
