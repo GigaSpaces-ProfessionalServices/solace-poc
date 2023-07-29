@@ -1,5 +1,5 @@
 ﻿using GigaSpaces.Core;
-using GigaSpaces.Examples.ProcessingUnit.Common;
+using Piper.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Processor
+namespace Piper.Processor
 {
     class CommonUtil
     {

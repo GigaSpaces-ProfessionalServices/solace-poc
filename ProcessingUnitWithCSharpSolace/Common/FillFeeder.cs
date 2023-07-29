@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using GigaSpaces.Core.Metadata;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Common
+namespace Piper.Common
 {
     public class FillFeeder
     {

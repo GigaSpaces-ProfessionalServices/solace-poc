@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using GigaSpaces.Core;
 using GigaSpaces.Core.Metadata;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Common
+namespace Piper.Common
 {
 
 

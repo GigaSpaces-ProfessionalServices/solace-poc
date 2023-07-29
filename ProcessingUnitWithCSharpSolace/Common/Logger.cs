@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Common
+namespace Piper.Common
 {
     public class Logger
     {
