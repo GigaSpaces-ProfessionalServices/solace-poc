@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title>GigaSpaces XAP.NET HelloWorld Example</title>
+</head>
+<body>
+
+<h1>GigaSpaces XAP.NET HelloWorld Example</h1>
+<hr />
+
+<h2>Overview</h2>
+<p>
+The HelloWorld example demonstrates writing a simple program using GigaSpaces XAP.NET. 
+The program connects to a space, writes an object, and reads that object back and removes it from the space.
+</p>
+<p>
+This example can be run with an embedded space or a remote space. 
+An embedded space is a space which resides in your application's process. 
+A remote space is a space which resides in another process.
+</p>
+<h2>Running the Example</h2>
+<p> Building is not required - the example is built automatically when run. If you wish to build manually, you can execute <code>Build.bat</code>.</p>
+<p>To run the example with an embedded space, execute <code>runEmbedded.bat</code>.</p>
+<p>
+To run the example with a remote space, first execute <code>RunRemoteSpace.bat</code>, 
+wait a few seconds until you see a message saying the space was started successfully,
+ then execute <code>runRemote.bat</code>.
+</p>
+<p>
+If you prefer to use Visual Studio, you can use <code>HelloWorld.sln</code>. 
+By default, running the example from Visual Studio will use an embedded space called 'EmbeddedSpace'. 
+If you wish to run with a remote space, either type the remote space name in <b>Project -> Properties -> Debug -> Command line arguments</b>, or change the the code accordingly.
+</p>
+</body>
+</html>
