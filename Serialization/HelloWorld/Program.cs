@@ -376,6 +376,7 @@ namespace GigaSpaces.Examples.HelloWorld
                 foreach (GS_Fill fill in fillList)
                 {
                     jarr.Append(createJsonResponse3(typeName, fill));
+                    jarr.Append(",");
                 }
             }
             jarr.Append("]");
@@ -400,15 +401,6 @@ namespace GigaSpaces.Examples.HelloWorld
             JArray payload = new JArray();
             for (int i = 0; i < propertyInfo.Length; i++)
             {
-                //GS_Order order = (GS_Order)itemValue;
-                if (typeName == typePrefix + "GS_Fill")
-                {
-                    Console.WriteLine("mainObjectStr.Append(\"\\\"columnName\\\":\\\"\");");
-                    Console.WriteLine("mainObjectStr.Append(\"" + propertyInfo[i].Name + "\");");
-                    Console.WriteLine("mainObjectStr.Append(\"\\\",\\\"value\\\":\");");
-                    Console.WriteLine("mainObjectStr.Append(fill." + propertyInfo[i].Name + ");");
-                    Console.WriteLine("mainObjectStr.Append(\"},\");");
-                }
                 object itemValTmp = itemValue.GetType().GetProperty(propertyInfo[i].Name).GetValue(itemValue);
                 propertyNames[i] = propertyInfo[i].Name;
                 propertyValue[i] = itemValue.GetType().GetProperty(propertyInfo[i].Name).GetValue(itemValue, null);
