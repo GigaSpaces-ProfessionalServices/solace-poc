@@ -9,6 +9,8 @@ using System.Reflection;
 using Newtonsoft.Json.Linq;
 using GigaSpaces.Core.Metadata;
 using System.Text;
+using System.Linq;
+using Piper.Common;
 
 namespace Piper.Processor
 {
@@ -30,6 +32,7 @@ namespace Piper.Processor
         string VpnName { get; set; }
 
         int ConnectRetries { get; set; }
+        bool WithReflectionSerialization { get; set; }
 
         SolaceSystems.Solclient.Messaging.ISession session;
 
@@ -84,6 +87,7 @@ namespace Piper.Processor
             if (VpnName == null) { VpnName = ""; }
 
             ConnectRetries = GetIntProperty("Solace.ConnectRetries", -1);
+            WithReflectionSerialization = GetBoolProperty("Solace.Serialize.WithReflection", false);
 
             AssemblyFilePath = GetFileProperty("AssemblyFileName");
 
@@ -212,45 +216,94 @@ namespace Piper.Processor
         {
             ExecuteBulk(bulk, 0);
         }
-        protected virtual void ExecuteBulk(IList<BulkItem> bulk, int attempts)
+        protected virtual void ExecuteBulk(IList<BulkItem> bulk, int retries)
         {
             JArray jsonArray = new JArray();
+            StringBuilder jsonArrayStr = new StringBuilder();
+            jsonArrayStr.Append("[");
             try
             {
-                foreach (BulkItem bulkItem in bulk)
+                //foreach (BulkItem bulkItem in bulk)
+                for (int i = 0; i < bulk.Count; i++)
                 {
                     // ExecuteBulkItem(bulkItem, retries);
-                    jsonArray.Add(createJsonResponse(bulkItem));
+                    if (WithReflectionSerialization)
+                    {
+                        jsonArray.Add(createJsonResponse(bulk.ElementAt(i)));
+                    } else
+                    {
+                        jsonArrayStr.Append(createJsonResponse3(bulk.ElementAt(i)));
+                    }
+                    if ((bulk.Count - 1) != i)
+                    {
+                        jsonArrayStr.Append("},");
+                    }
                 }
+                jsonArrayStr.Append("}]");
             }
             catch (Exception e)
             {
-                if (attempts >= MaxAttempts)
+                //  For other execptions retry till max
+                if (retries >= MaxAttempts)
                     throw new Exception("Can't execute bulk store.", e);
 
-                if (attempts == 1)
+                if (retries == 1)
                 {
-                    Logger.Error("Retrying ... " + attempts, e);
+                    Logger.Error("Retrying ... " + retries, e);
                 }
-                ExecuteBulk(bulk, attempts + 1);
+                ExecuteBulk(bulk, retries + 1);
             }
-            SendMessage(jsonArray);
+            //            SendMessage(jsonArray);
+            SendMessage(jsonArrayStr.ToString(),jsonArray);
         }
 
-        protected virtual void ExecuteBulkItem(BulkItem bulkItem, int attempts)
+        protected virtual void ExecuteBulkItem(BulkItem bulkItem, int retries)
         {
             JArray jsonArray = new JArray();
+            StringBuilder jsonArrayStr = new StringBuilder();
+            jsonArrayStr.Append("[");
+
             try
             {
-                jsonArray.Add(createJsonResponse(bulkItem));
+                if (WithReflectionSerialization)
+                {
+                    jsonArray.Add(createJsonResponse(bulkItem));
+                }
+                else
+                {
+                    jsonArrayStr.Append(createJsonResponse3(bulkItem));
+                }
+                //jsonArrayStr.Append(",");
+
             }
             catch (Exception e)
             {
-                if (attempts >= MaxAttempts)
+                if (retries >= MaxAttempts)
                     throw new Exception("Can't execute bulk store.", e);
-                ExecuteBulkItem(bulkItem, attempts + 1);
+                ExecuteBulkItem(bulkItem, retries + 1);
             }
-            SendMessage(jsonArray);
+            jsonArrayStr.Append("]");
+            //            SendMessage(jsonArray);
+            SendMessage(jsonArrayStr.ToString(), jsonArray);
+        }
+
+        string createJsonResponse3(BulkItem bulkItem)
+        {
+            setSpaceProxyIfNull();
+            StringBuilder mainObjectStr = new StringBuilder();
+            IType itemValue = (IType)bulkItem.Item;
+            string typeName = bulkItem.Item.GetType().Name;
+
+            mainObjectStr.Append("{");
+            mainObjectStr.Append("\"op\":\"");
+            mainObjectStr.Append(bulkItem.Operation.ToString());
+            mainObjectStr.Append("\",");
+
+
+            mainObjectStr.Append(itemValue.serializeToJsonString());
+            mainObjectStr.Append("]");
+
+            return mainObjectStr.ToString();
         }
 
         JObject createJsonResponse(BulkItem bulkItem)
@@ -345,7 +398,8 @@ namespace Piper.Processor
             Console.WriteLine("Queue '{0}' has been created and provisioned.", queueName);
         }
 
-        private void SendMessage(JArray data)
+//        private void SendMessage(JArray data)
+        private void SendMessage(string jsonStr, JArray jArray)
         {
 
             // Create the queue
@@ -360,8 +414,16 @@ namespace Piper.Processor
                 message.DeliveryMode = MessageDeliveryMode.Persistent;
 
                 // Create the message content as a binary attachment
-                message.BinaryAttachment = Encoding.ASCII.GetBytes(
-                    Newtonsoft.Json.JsonConvert.SerializeObject(data));
+                if (WithReflectionSerialization)
+                {
+                    message.BinaryAttachment = Encoding.ASCII.GetBytes(
+                                            Newtonsoft.Json.JsonConvert.SerializeObject(jArray));
+                }
+                else
+                {
+                    message.BinaryAttachment = Encoding.ASCII.GetBytes(
+                        jsonStr);
+                }
 
                 // Create a message correlation object
                 MsgInfo msgInfo = new MsgInfo(message);

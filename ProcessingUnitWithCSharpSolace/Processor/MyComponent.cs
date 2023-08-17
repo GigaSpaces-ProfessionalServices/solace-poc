@@ -13,7 +13,7 @@ using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Threading;
 
-namespace GigaSpaces.Examples.ProcessingUnit.Processor
+namespace Piper.Processor
 {
     [BasicProcessingUnitComponent]
     class MyComponent

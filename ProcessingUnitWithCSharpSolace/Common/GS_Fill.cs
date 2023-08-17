@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using GigaSpaces.Core.Metadata;
 
 namespace Piper.Common
@@ -7,43 +8,43 @@ namespace Piper.Common
     /// Represnts a Fill object
     /// </summary>	
     [SpaceClass(Persist = true)]
-    public class GS_Fill
-	{
+    public class GS_Fill : IType
+    {
 
-		private long _FillID;
-		private long _OrderID;
-		private long _LastShares;
-		private double _LastPrice;
+        private long _FillID;
+        private long _OrderID;
+        private long _LastShares;
+        private double _LastPrice;
 
         [SpaceProperty(AliasName = "FillID")]
         [SpaceID]
-		public long FillID
-		{
-			get { return _FillID; }
-			set { _FillID = value; }
-		}
+        public long FillID
+        {
+            get { return _FillID; }
+            set { _FillID = value; }
+        }
 
         [SpaceProperty(AliasName = "OrderID")]
         [SpaceRouting]
-		public long OrderID
-		{
-			get { return _OrderID; }
-			set { _OrderID = value; }
-		}
+        public long OrderID
+        {
+            get { return _OrderID; }
+            set { _OrderID = value; }
+        }
 
         [SpaceProperty(AliasName = "LastShares")]
         public long LastShares
-		{
-			get { return _LastShares; }
-			set { _LastShares = value; }
-		}
+        {
+            get { return _LastShares; }
+            set { _LastShares = value; }
+        }
 
         [SpaceProperty(AliasName = "LastPrice")]
         public double LastPrice
-		{
-			get { return _LastPrice; }
-			set { _LastPrice = value; }
-		}
+        {
+            get { return _LastPrice; }
+            set { _LastPrice = value; }
+        }
 
         private long _FldInt_1;
         [SpaceProperty(AliasName = "FldInt_1")]
@@ -588,6 +589,383 @@ namespace Piper.Common
             get { return this._FldStr_50; }
             set { this._FldStr_50 = value; }
         }
+        public string serializeToJsonString()
+        {
+            GS_Fill fill = this;
+            StringBuilder fillJsonStr = new StringBuilder();
+            fillJsonStr.Append("\"type\":\"");
+            fillJsonStr.Append("GS_Fill");
+            fillJsonStr.Append("\",\"spaceId\":\"");
+            fillJsonStr.Append("FillID\"");
+            //  fillJsonStr.Append("_ID\"");
+            fillJsonStr.Append(",\"payload\":[{");
 
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FillID");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FillID);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("OrderID");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.OrderID);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("LastShares");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.LastShares);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("LastPrice");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.LastPrice);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_1");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_1);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_2");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_2);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_3");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_3);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_4");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_4);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_5");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_5);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_6");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_6);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_7");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_7);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_8");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_8);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_9");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_9);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_10");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_10);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldInt_11");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldInt_11);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldTime_1");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldTime_1);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldTime_2");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldTime_2);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldTime_3");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldTime_3);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldTime_4");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldTime_4);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldDbl_1");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldDbl_1);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldDbl_2");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldDbl_2);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldDbl_3");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldDbl_3);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_1");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_1);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_2");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_2);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_3");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_3);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_4");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_4);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_5");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_5);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_6");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_6);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_7");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_7);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_8");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_8);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_9");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_9);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_10");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_10);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_11");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_11);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_12");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_12);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_13");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_13);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_14");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_14);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_15");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_15);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_16");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_16);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_17");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_17);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_18");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_18);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_19");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_19);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_20");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_20);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_21");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_21);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_22");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_22);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_23");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_23);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_24");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_24);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_25");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_25);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_26");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_26);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_27");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_27);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_28");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_28);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_29");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_29);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_30");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_30);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_31");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_31);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_32");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_32);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_33");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_33);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_34");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_34);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_35");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_35);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_36");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_36);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_37");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_37);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_38");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_38);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_39");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_39);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_40");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_40);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_41");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_41);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_42");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_42);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_43");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_43);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_44");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_44);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_45");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_45);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_46");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_46);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_47");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_47);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_48");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_48);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_49");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_49);
+            fillJsonStr.Append("\"},{");
+            fillJsonStr.Append("\"columnName\":\"");
+            fillJsonStr.Append("FldStr_50");
+            fillJsonStr.Append("\",\"value\":\"");
+            fillJsonStr.Append(fill.FldStr_50);
+            fillJsonStr.Append("\"}");
+            return fillJsonStr.ToString();
+        }
+
+        public IType deSerializeFromJsonString(string json)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
