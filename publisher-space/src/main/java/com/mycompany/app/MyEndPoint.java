@@ -1,39 +1,25 @@
 package com.mycompany.app;
 
-import com.gigaspaces.datasource.DataSourceException;
-import com.gigaspaces.document.SpaceDocument;
-import com.gigaspaces.metadata.SpaceTypeDescriptor;
 import com.gigaspaces.sync.*;
 import com.j_spaces.sadapter.datasource.BulkDataItem;
+import com.solace.messaging.MessagingService;
 import com.solace.messaging.PubSubPlusClientException;
 import com.solace.messaging.config.SolaceProperties;
-import com.solace.messaging.publisher.DirectMessagePublisher;
+import com.solace.messaging.config.profile.ConfigurationProfile;
 import com.solace.messaging.publisher.OutboundMessage;
 import com.solace.messaging.publisher.PersistentMessagePublisher;
 import com.solace.messaging.resources.Topic;
+import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import com.solace.messaging.MessagingService;
-import com.solace.messaging.MessagingServiceClientBuilder;
-import com.solace.messaging.config.profile.ConfigurationProfile;
-import com.solace.messaging.util.CompletionListener;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.io.Serializable;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-
 public class MyEndPoint extends SpaceSynchronizationEndpoint{
-    protected String spaceName = "demo";
-
     protected static final Log logger = LogFactory.getLog(MyEndPoint.class);
-
+    protected String spaceName = "demo";
     protected  Topic topic;
-    protected DirectMessagePublisher publisher1;
+    //protected DirectMessagePublisher publisher;
     protected PersistentMessagePublisher publisher;
     protected MessagingService messagingService;
 

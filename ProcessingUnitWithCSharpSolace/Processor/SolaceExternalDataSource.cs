@@ -123,7 +123,7 @@ namespace Piper.Processor
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception thrown: {0}", ex.Message);
+                Logger.Info("Exception thrown: {0}", ex.Message);
             }
 
         }
@@ -160,17 +160,17 @@ namespace Piper.Processor
             };
 
             // Connect to the Solace messaging router
-            Console.WriteLine("Connecting as {0}@{1} on {2}...", UserName, VpnName, host);
+            Logger.Info("Connecting as {0}@{1} on {2}...", UserName, VpnName, host);
             // NOTICE HandleSessionEvent as session event handler
             session = context.CreateSession(sessionProps, null, HandleSessionEvent);
             ReturnCode returnCode = session.Connect();
             if (returnCode == ReturnCode.SOLCLIENT_OK)
             {
-                Console.WriteLine("Session successfully connected.");
+                Logger.Info("Session successfully connected.");
             }
             else
             {
-                Console.WriteLine("Error connecting, return code: {0}", returnCode);
+                Logger.Info("Error connecting, return code: {0}", returnCode);
             }
         }
         void HandleSessionEvent(object sender, SessionEventArgs args)
@@ -178,7 +178,7 @@ namespace Piper.Processor
             // Received a session event
             if (debuglevel)
             {
-                Console.WriteLine("Received session event {0}.", args.ToString());
+                Logger.Info("Received session event {0}.", args.ToString());
             }
             switch (args.Event)
             {
@@ -186,25 +186,13 @@ namespace Piper.Processor
                 case SessionEvent.Acknowledgement:
                     if (debuglevel)
                     {
-                        Console.WriteLine("SessionEvent.Acknowledgement {0}.", args.ToString());
-                    }
-                    MsgInfo messageRecord = args.CorrelationKey as MsgInfo;
-                    if (messageRecord != null)
-                    {
-                        messageRecord.Acked = true;
-                        messageRecord.Accepted = args.Event == SessionEvent.Acknowledgement;
+                        Logger.Info("SessionEvent.Acknowledgement {0}.", args.ToString());
                     }
                     break;
                 case SessionEvent.RejectedMessageError:
                     if (debuglevel)
                     {
-                        Console.WriteLine("SessionEvent.RejectedMessageError : message record rejected " + args.ResponseCode);
-                    }
-                    MsgInfo _messageRecord = args.CorrelationKey as MsgInfo;
-                    if (_messageRecord != null)
-                    {
-                        _messageRecord.Acked = false;
-                        _messageRecord.Accepted = false;
+                        Logger.Info("SessionEvent.RejectedMessageError : message record rejected " + args.ResponseCode);
                     }
                     break;
                 default:
@@ -261,8 +249,7 @@ namespace Piper.Processor
         {
             JArray jsonArray = new JArray();
             StringBuilder jsonArrayStr = new StringBuilder();
-            jsonArrayStr.Append("[");
-
+            
             try
             {
                 if (WithReflectionSerialization)
@@ -271,7 +258,9 @@ namespace Piper.Processor
                 }
                 else
                 {
+                    jsonArrayStr.Append("[");
                     jsonArrayStr.Append(createJsonResponse3(bulkItem));
+                    jsonArrayStr.Append("]");
                 }
                 //jsonArrayStr.Append(",");
 
@@ -282,7 +271,6 @@ namespace Piper.Processor
                     throw new Exception("Can't execute bulk store.", e);
                 ExecuteBulkItem(bulkItem, retries + 1);
             }
-            jsonArrayStr.Append("]");
             //            SendMessage(jsonArray);
             SendMessage(jsonArrayStr.ToString(), jsonArray);
         }
@@ -313,12 +301,13 @@ namespace Piper.Processor
             //call Once move to above
 
             object itemValue = bulkItem.Item;
-
-            Logger.Info("AssemblyFilePath is: " + AssemblyFilePath);
-            Logger.Info("assembly.FullName is: ", assembly.FullName);
-            Logger.Info("bulkItem.Item.GetType() is: " + bulkItem.Item.GetType());
-            Logger.Info("bulkItem.Item.GetType().FullName is: " + bulkItem.Item.GetType().FullName);
-
+            if (debuglevel)
+            {
+                Logger.Info("AssemblyFilePath is: " + AssemblyFilePath);
+                Logger.Info("assembly.FullName is: ", assembly.FullName);
+                Logger.Info("bulkItem.Item.GetType() is: " + bulkItem.Item.GetType());
+                Logger.Info("bulkItem.Item.GetType().FullName is: " + bulkItem.Item.GetType().FullName);
+            }
             Type type = assembly.GetType(bulkItem.Item.GetType().FullName);
             PropertyInfo[] propertyInfo = type.GetProperties();
 
@@ -364,18 +353,16 @@ namespace Piper.Processor
             if (spaceProxy == null)
             {
                 SpaceProxyFactory factory = new SpaceProxyFactory(SpaceName);
-                //factory.LookupGroups = LookupGroup;
                 try
                 {
                     spaceProxy = factory.Create();
-                    spaceProxy.Count(new object());
-                    //assembly = Assembly.LoadFrom(AssemblyFilePath);
+                    //spaceProxy.Count(new object());
                     setSolaceSession();
                 }
                 catch (Exception e)
                 {
                     Logger.Error(e.Message, e);
-                    Console.WriteLine("Space verification failed. Please check & try again...");
+                    Logger.Info("Space verification failed. Please check & try again...");
                 }
             }
         }
@@ -384,7 +371,7 @@ namespace Piper.Processor
         {
             // Provision the queue
             string queueName = SpaceName;
-            Console.WriteLine("Attempting to provision the queue '{0}'...", queueName);
+            Logger.Info("Attempting to provision the queue '{0}'...", queueName);
             queue = ContextFactory.Instance.CreateQueue(queueName);
             // Set queue permissions to "consume" and access-type to "exclusive"
             EndpointProperties endpointProps = new EndpointProperties()
@@ -395,17 +382,12 @@ namespace Piper.Processor
             // Provision it, and do not fail if it already exists
             session.Provision(queue, endpointProps,
                 ProvisionFlag.IgnoreErrorIfEndpointAlreadyExists | ProvisionFlag.WaitForConfirm, null);
-            Console.WriteLine("Queue '{0}' has been created and provisioned.", queueName);
+            Logger.Info("Queue '{0}' has been created and provisioned.", queueName);
         }
 
 //        private void SendMessage(JArray data)
         private void SendMessage(string jsonStr, JArray jArray)
         {
-
-            // Create the queue
-            //TODO should be once queue creation
-            // using (IQueue queue = ContextFactory.Instance.CreateQueue(queueName))
-            // {
             // Create the message
             using (IMessage message = ContextFactory.Instance.CreateMessage())
             {
@@ -425,16 +407,12 @@ namespace Piper.Processor
                         jsonStr);
                 }
 
-                // Create a message correlation object
-                MsgInfo msgInfo = new MsgInfo(message);
-                message.CorrelationKey = msgInfo;
-
                 // Send the message to the queue on the Solace messaging router
-                Console.WriteLine("Sending message to queue {0}...", SpaceName);
+                Logger.Info("Sending message to queue {0}...", SpaceName);
                 ReturnCode returnCode = session.Send(message);
                 if (returnCode != ReturnCode.SOLCLIENT_OK)
                 {
-                    Console.WriteLine("Message sending failed, return code: {0}", returnCode);
+                    Logger.Info("Message sending failed, return code: {0}", returnCode);
 
                     // Throw exception for failed message
                     throw new Exception("Msg sending failed");
@@ -443,61 +421,11 @@ namespace Piper.Processor
                 {
                     if (debuglevel)
                     {
-                        Console.WriteLine("Message sent successfully, return code: {0}", returnCode);
+                        Logger.Info("Message sent successfully, return code: {0}", returnCode);
                     }
                 }
             }
          }
-
-        /*
-        
-        public override void ExecuteBulk(IList<BulkItem> bulk)
-        {
-            Console.WriteLine("Here in Solace");
-            ExecuteBulk(bulk, 0);
-        }
-        protected virtual void ExecuteBulk(IList<BulkItem> bulk, int attempts)
-        {
-            try
-            {
-                foreach (BulkItem bulkItem in bulk)
-                {
-                    ExecuteBulkItem(bulkItem, attempts);
-                }
-            }
-            catch (Exception e)
-            {
-                if (attempts >= MaxAttempts)
-                    throw new Exception("Can't execute bulk store.", e);
-                ExecuteBulk(bulk, attempts + 1);
-            }
-        }
-        protected virtual void ExecuteBulkItem(BulkItem bulkItem, int attempts)
-        {
-            object entry = bulkItem.Item;
-
-
-            switch (bulkItem.Operation)
-            {
-                case BulkOperation.Remove:
-                    //session.Delete(session.Merge(entry));
-                    Logger.Info("Remove called for: {0}", entry);
-
-                    break;
-                case BulkOperation.Write:
-                    Console.WriteLine("Write called for: {0}", entry);
-                    Logger.Info("Write called for: {0}", entry);
-                    break;
-                case BulkOperation.Update:
-                    Logger.Info("Update called for: {0}", entry);
-                    break;
-                default:
-                    break;
-            }
-
-        }
-        */
-
     }
 
 }
