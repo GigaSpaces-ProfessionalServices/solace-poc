@@ -17,11 +17,12 @@
 	<!-- Log settings -->
 	<XapNet.Logs.ConfigurationFile>$(XapNet.Config.Path)\Log\xap_logging.properties</XapNet.Logs.ConfigurationFile>
 	<XapNet.Logs.Path>$(XapNet.Path)\Logs</XapNet.Logs.Path>
+	<!-- Change as per requirement -->
 	<XapNet.Logs.FileName>{date,yyyy-MM-dd~HH.mm}-gigaspaces-{service}-{host}-{pid}.log</XapNet.Logs.FileName>
 
 	<!-- Lookup and Discovery options -->
 	<XapNet.HostName>%COMPUTERNAME%</XapNet.HostName>	
-	<XapNet.Multicast.Enabled>true</XapNet.Multicast.Enabled>
+	<XapNet.Multicast.Enabled>false</XapNet.Multicast.Enabled>
 	<XapNet.Groups>xap-16.3.0</XapNet.Groups>
 	<XapNet.Locators></XapNet.Locators>
 	<XapNet.Zones></XapNet.Zones>
@@ -35,8 +36,9 @@
 	<XapNet.GsAgent.ConfigFile>$(XapNet.Config.Path)\gs-agent.config</XapNet.GsAgent.ConfigFile>
 
 	<XapNet.Gsc.ConfigFile>$(XapNet.Config.Path)\gsc.config</XapNet.Gsc.ConfigFile>
-	<XapNet.Gsc.Memory.Initial>16</XapNet.Gsc.Memory.Initial>
-	<XapNet.Gsc.Memory.Maximum>512</XapNet.Gsc.Memory.Maximum>
+	<!-- Change below 2 as per requirement -->
+	<XapNet.Gsc.Memory.Initial>2048</XapNet.Gsc.Memory.Initial>
+	<XapNet.Gsc.Memory.Maximum>2048</XapNet.Gsc.Memory.Maximum>
 
 	<XapNet.Gsm.ConfigFile>$(XapNet.Config.Path)\gsm.config</XapNet.Gsm.ConfigFile>
 	<XapNet.Gsm.Memory.Initial>16</XapNet.Gsm.Memory.Initial>
@@ -47,8 +49,8 @@
 	<XapNet.Lus.Memory.Maximum>512</XapNet.Lus.Memory.Maximum>
 
 	<XapNet.Manager.ConfigFile>$(XapNet.Config.Path)\manager.config</XapNet.Manager.ConfigFile>
-	<XapNet.Manager.Memory.Initial>16</XapNet.Manager.Memory.Initial>
-	<XapNet.Manager.Memory.Maximum>512</XapNet.Manager.Memory.Maximum>
+	<XapNet.Manager.Memory.Initial>1024</XapNet.Manager.Memory.Initial>
+	<XapNet.Manager.Memory.Maximum>1024</XapNet.Manager.Memory.Maximum>
 	
 	<XapNet.WebUI.ConfigFile>$(XapNet.Config.Path)\webui.config</XapNet.WebUI.ConfigFile>
 	<XapNet.WebUI.Memory.Maximum>512</XapNet.WebUI.Memory.Maximum>
